@@ -32,6 +32,26 @@ form.addEventListener('submit', async (e) => {
     message: formData.get('message'),
   };
 
+  function showStatus(message, type) {
+  status.textContent = message;
+
+  // Remove previous styles
+  status.classList.remove("success", "error");
+
+  // Apply new style
+  status.classList.add(type, "show");
+
+  // Hide after 3 seconds
+  setTimeout(() => {
+    status.classList.remove("show");
+
+    setTimeout(() => {
+      status.textContent = "";
+      status.classList.remove("success", "error");
+    }, 300); // Wait for fade-out animation
+  }, 3000);
+}
+
   try {
     const response = await fetch('/api/contact', {
       method: 'POST',
@@ -44,13 +64,13 @@ form.addEventListener('submit', async (e) => {
     const result = await response.json();
 
     if (response.ok) {
-      status.textContent = 'Message sent successfully!';
-      form.reset();
-    } else {
-      status.textContent = result.message || 'Failed to send message.';
-    }
+        showStatus("✅ Message sent successfully!", "success");
+        form.reset();
+      } else {
+      showStatus(result.message || "❌ Failed to send message.", "error");
+      }
   } catch (error) {
-    console.error(error);
-    status.textContent = 'Something went wrong.';
-  }
+      console.error(error);
+     showStatus("⚠️ Something went wrong. Please try again.", "error");
+    }
 });

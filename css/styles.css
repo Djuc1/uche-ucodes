@@ -57,6 +57,35 @@
   z-index: 10;
 }
 
+#status {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#status.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#status.success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+#status.error {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+
 @media (max-width: 767px) {
   .header .social i {
     font-size: 30px;
