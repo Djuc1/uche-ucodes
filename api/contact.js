@@ -24,13 +24,10 @@ module.exports = async (req, res) => {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
       subject: `New Portfolio Message from ${name}`,
-      text: `
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-      `,
+      text: 
+      `Name: ${name} 
+      Email: ${email}
+      Message: ${message}`,
     });
 
     return res.status(200).json({ message: 'Email sent successfully' });
