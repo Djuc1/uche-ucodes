@@ -16,7 +16,33 @@ function typeText(text, typingElement, delay) {
 
 document.addEventListener('DOMContentLoaded', runTypingEffect);
 
-//
+//Animate on scroll
+const revealElements = document.querySelectorAll(
+  '.reveal, .reveal-left, .reveal-right, .reveal-scale'
+);
+
+const observer = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+
+        // Remove this line if you want the animation
+        // to happen every time the element enters the viewport.
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.15
+  }
+);
+
+revealElements.forEach((element) => {
+  observer.observe(element);
+});
+
+
 
 const form = document.getElementById('contact-form');
 const status = document.getElementById('status');
