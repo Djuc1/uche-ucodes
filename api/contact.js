@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"${name}"`,
+      from: `"${name}" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
       replyTo: email,
       subject: `New Portfolio Message from ${name}`,
