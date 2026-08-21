@@ -21,13 +21,11 @@ module.exports = async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: `"${name}" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
+      replyTo: email,
       subject: `New Portfolio Message from ${name}`,
-      text: 
-      `Name: ${name} 
-      Email: ${email}
-      Message: ${message}`,
+      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     });
 
     return res.status(200).json({ message: 'Email sent successfully' });
@@ -36,3 +34,5 @@ module.exports = async (req, res) => {
     return res.status(500).json({ message: 'Failed to send email' });
   }
 };
+
+
